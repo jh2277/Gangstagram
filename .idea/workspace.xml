@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e2a7998-dafa-4396-95ec-79429a19aabe" name="Changes" comment="" />
+    <list default="true" id="2e2a7998-dafa-4396-95ec-79429a19aabe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/gganstagram.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/backgu.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/camera@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/comment@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/dm@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/favorite@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/home@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/img_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/like@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/more@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/search@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/trending@3x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/xmas.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/mainpage.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
