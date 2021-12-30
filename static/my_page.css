@@ -6,7 +6,8 @@ body{
 }
 
 #container{
-    width: 100%;
+    margin: auto;
+    width: 95%;
     max-width:720px;
 }
 
@@ -17,13 +18,15 @@ body{
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
-    margin: 3% 4%;
+
     font-weight: bold;
+    width: 95%;
+    position: fixed;
 }
 #head-header #left-wrap {
     font-size: 5vw;
     font-weight: bold;
-    padding-left: 2%;
+
 }
 /*오른쪽 상단 메뉴 (토글,게시글)*/
 #head-header #right-wrap{
@@ -80,21 +83,17 @@ body{
 
 
 /*/////////////////*/
-#head-mid
+#post-top-mid
 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin-left: 2%;
-    margin-top: 3%;
+    margin-top: 18%;
     border-bottom: 1px solid gray;
 }
-#head-mid img{
-    width:20%;
-    margin-left: 4%;
-}
-#head-mid #profile_pic img{
+
+#post-top #profile_pic img{
     width: 20vw;
     height: 20vw;
     border-radius: 60%;
@@ -108,21 +107,21 @@ body{
     font-weight: bold;
     margin-left: 8%;
 }
-#head-mid #head-mid-right
+#post-top #post-top-mid-right
 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
-    font-size: 3vw;
+    width: 95%;
+    font-size: 4vw;
     font-weight: bold;
     padding-left: 10%;
 }
-#head-mid-right p {
+#post-top-mid-right p {
     margin-bottom: 0;
 }
-#head-mid #post
+#post-top #post
 {
     display: flex;
     flex-direction: column;
@@ -130,14 +129,14 @@ body{
     align-items: center;
 
 }
-#head-mid #follower
+#post-top #follower
 {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-#head-mid #following
+#post-top #following
 {
     display: flex;
     flex-direction: column;
@@ -169,7 +168,7 @@ body{
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid lightgray;
-    margin-left: 0.5%;
+
 }
 #first_tab {
     width: 1vw;
@@ -199,7 +198,6 @@ body{
     grid-row-gap: 0;
     grid-column-gap: 0;
     width: 100%;
-    margin-left: 2%;
 }
 .grid_item{
     border: 1px solid gray;
@@ -216,7 +214,7 @@ body{
 #foot-container{
  background-color: whitesmoke;
  position: fixed;
- width: 100%;
+ width: 95%;
  max-width: 720px;
  border-top: 1px solid lightgray;
  bottom: 0;
