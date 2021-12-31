@@ -13,13 +13,9 @@
 
 .mytitle {
     width: 100%;
-    max-width: 780px;
-    color: black;
+    max-width: 375px;
     text-align: left;
-
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
+    margin-top: 20%;
 
 }
 
