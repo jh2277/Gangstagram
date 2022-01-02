@@ -10,10 +10,23 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/my_page2.css">
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <title>mypage</title>
     <style>
 
     </style>
+        <script>
+        $(function () {
+            $(".grid_item").click(function () {
+                $(".modal").fadeIn();
+            });
+
+            $(".modal_content").click(function () {
+                $(".modal").fadeOut();
+            });
+
+        });
+    </script>
 </head>
 <body>
     <div id ="container">
@@ -87,6 +100,17 @@
                 <img  src="/static/image/like@3x.png">
                 <img  src="/static/image/mypage.png">
             </div>
+        </div>
+        <div class="modal">
+                <div class="modal_content">
+                    <div id="modal_head">
+                        <img src="/static/image/img.png">
+                        <a>X</a>
+                    </div>
+                    <div id="modal_main">
+                        <img src="/static/image/hamabe.jpeg" style="width: 340px; height:500px">
+                    </div>
+                </div>
         </div>
     </div>
 </body>
