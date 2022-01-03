@@ -16,6 +16,10 @@
 
     </style>
     <script>
+        function add_post() {
+            window.location.href = '/add_post'
+        }
+
         $(function () {
             $(".grid_item").click(function () {
                 $(".modal").fadeIn();
@@ -55,7 +59,7 @@
             <div id="right-wrap">
 
                 <div id="togBtn">
-                    <img alt="my_page"  src="{{ url_for('static', filename='/image/trending3@x.png')}}">
+                    <img alt="add_post" src="{{ url_for('static', filename='/image/trending3@x.png')}}" onclick = add_post()>
                     <input type="checkbox" class="" id="toggle">
                     <label for="toggle"><span><img alt="my_page"  src="{{ url_for('static', filename='/image/bars.png')}}"></span></label>
                     <ul id="toggle_menu" class="toggle_menu">
