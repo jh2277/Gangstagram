@@ -64,7 +64,7 @@
             window.location.href = '/login'
         }
 
-        function get_my_story() {
+        $(document).ready(function () {
             $.ajax({
                 type: 'GET',
                 url: '/my_page/my_story',
@@ -86,7 +86,9 @@
                     }
                 }
             });
-        }
+        });
+
+
 
 
     </script>
@@ -96,7 +98,7 @@
     <div id="head-container">
         <div id="head-header">
             <div id="left-wrap">
-                <p>GANG_NAM</p>
+                <p>{{ nickname }}</p>
             </div>
             <div id="right-wrap">
 
