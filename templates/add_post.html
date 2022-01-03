@@ -16,7 +16,7 @@
 
     <script>
         function posting() {
-            let nickname = $({{ nickname }}   //추가
+            let nickname = '{{ nickname }}';
             let file = $('#file')[0].files[0]
             let comment = $('#comment').val() //추가
             let hash = $('#hash').val()
@@ -80,7 +80,6 @@
         </div>
 
     </div>
-
 
     <div id="foot">
         <div id="footer">
