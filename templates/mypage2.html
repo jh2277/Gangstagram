@@ -20,6 +20,34 @@
             window.location.href = '/add_post'
         }
 
+        //프로필 사진 바꾸기 //
+
+        $(document).ready(function () {
+
+
+            var readURL = function (input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('.profile-pic').attr('src', e.target.result);
+                        console.log(e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#file-upload").on('change', function () {
+                readURL(this);
+            });
+
+            $(".upload-button").on('click', function () {
+                $("#file-upload").click();
+            });
+        });
+
+        //모달창구현//
         $(function () {
             $(".grid_item").click(function () {
                 $(".modal").fadeIn();
@@ -59,9 +87,11 @@
             <div id="right-wrap">
 
                 <div id="togBtn">
-                    <img alt="add_post" src="{{ url_for('static', filename='/image/trending3@x.png')}}" onclick = add_post()>
+                    <img alt="add_post" src="{{ url_for('static', filename='/image/trending3@x.png')}}"
+                         onclick=add_post()>
                     <input type="checkbox" class="" id="toggle">
-                    <label for="toggle"><span><img alt="my_page"  src="{{ url_for('static', filename='/image/bars.png')}}"></span></label>
+                    <label for="toggle"><span><img alt="my_page"
+                                                   src="{{ url_for('static', filename='/image/bars.png')}}"></span></label>
                     <ul id="toggle_menu" class="toggle_menu">
                         <li><a href="#" onclick="">만든 사람</a></li>
                         <hr>
@@ -72,7 +102,14 @@
         </div>
         <div id="head-mid">
             <div id="profile_pic">
-                <img alt="my_page"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
+                <div class="circle">
+                    <img class="profile-pic" src=" " style="width: 100%">
+                </div>
+                <div class="p-image">
+                    <i class="fa fa-camera upload-button"></i>
+                    <Label class="input-button" for="file-upload"><img src ="/static/image/black_camer.png"></Label>
+                        <input id="file-upload" type="file" accept="image/*"/>
+                </div>
                 <p id="nickname">GANG_NAM</p>
             </div>
             <div id="head-mid-right">
@@ -94,8 +131,9 @@
     <div id="Post-container">
         <div id="Post-header">
             <ul id="navigation">
-                <li> <img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/photo.png')}}"></li>
-                <li><img alt="camera" class="post_icon" src="{{ url_for('static', filename='/image/camera@3x.png')}}"></li>
+                <li><img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/photo.png')}}"></li>
+                <li><img alt="camera" class="post_icon" src="{{ url_for('static', filename='/image/camera@3x.png')}}">
+                </li>
             </ul>
         </div>
         <div id="Post-mid">
@@ -115,7 +153,7 @@
     </div>
     <div id="foot-container">
         <div id="foot_icon_wrapper">
-            <img alt="home"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
+            <img alt="home" src="{{ url_for('static', filename='/image/home@3x.png')}}">
             <img alt="serch" src="{{ url_for('static', filename='/image/serch@3x')}}">
             <img alt="waether" src="{{ url_for('static', filename='/image/weather.png')}}">
             <img alt="shop" src="{{ url_for('static', filename='/image/shopping-bag.png')}}">
@@ -125,11 +163,11 @@
     <div class="modal">
         <div class="modal_content">
             <div id="modal_head">
-                 <img alt="my_page"  src="{{ url_for('static', filename='/image/img.png')}}">
+                <img alt="my_page" src="{{ url_for('static', filename='/image/img.png')}}">
                 <a>X</a>
             </div>
             <div id="modal_main">
-                 <img alt="my_page"  src="{{ url_for('static', filename='/image/img.png')}}">
+                <img alt="my_page" src="{{ url_for('static', filename='/image/img.png')}}">
             </div>
         </div>
     </div>

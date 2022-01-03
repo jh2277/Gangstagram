@@ -92,20 +92,59 @@ body{
     width:20%;
     margin-left: 4%;
 }
-#head-mid #profile_pic img{
-    width: 80px;
-    height: 80px;
-    border-radius: 60%;
-    border:1px solid black;
-    margin-left: 7%;
-    margin-bottom: 0;
+
+#profile_pic{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-#profile_pic
+.profile-pic {
+    max-width: 200px;
+    max-height: 200px;
+    display: block;
+}
+#file-upload{
+    display: none;
+    background-image: url("/static/image/camera@3x.png");
+}
+.file-upload input{
+    display: none;
+    background-image: url("/static/image/camera@3x.png");
+}
+
+.circle {
+    margin-left : 10%;
+    margin-right: 0;
+    border-radius: 1000px;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    border: 3px solid rgba(0, 0, 0,1);
+}
+
+.p-image {
+    margin-top: 20px;
+    margin-left: 144px;
+    position: absolute;
+    color: #666666;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+
+.p-image:hover {
+  transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+.upload-button {
+  font-size: 1.2em;
+}
+.input-button
 {
-    margin-left:3%;
+    width: 100px;
 }
+
 #profile_pic p {
-    font-size: 10px;
+    font-size: 15px;
     margin-bottom: 8%;
     font-weight: bold;
     margin-left: 8%;
