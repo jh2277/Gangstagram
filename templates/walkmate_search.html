@@ -23,10 +23,11 @@
         <img src="{{ url_for('static', filename='/image/trending@3x.png') }}" class="postadd" alt="gangstagram">
     </div>
 
-    <div id="title">
-        <p class="titleword">산책메이트 찾기</p>
-    </div>
+
     <div id="container">
+        <div id="title">
+            <h1><strong>산책메이트 찾기</strong></h1>
+        </div>
 
         <div id="residence">
             <div class="row g-3">
@@ -76,15 +77,19 @@
         </div>
 
     </div>
-</div>
 
-
-<div id="foot">
-    <div id="footer">
-        <img alt="home" class="footer-icon" src="/static/image/home@3x.png">
-        <img alt="search" class="footer-icon" src="/static/image/search@3x.png">
-        <img alt="trending" class="footer-icon" src="/static/image/trending@3x.png">
-        <img alt="like" class="footer-icon" src="/static/image/like@3x.png">
-        <img alt="mail" class="footer-icon" src="/static/image/dm@3x.png">
+    <div id="foot">
+        <div id="footer">
+            <img alt="home" class="footer-icon" src="{{ url_for('static', filename='/image/home@3x.png') }}">
+            <img alt="search" class="footer-icon" src="{{ url_for('static', filename='/image/search@3x.png')}}">
+            <img alt="weather" class="footer-icon" src="{{ url_for('static', filename='/image/weather.png') }}">
+            <img alt="shop" class="footer-icon" src="{{ url_for('static', filename='/image/shopping-bag.png') }}">
+            <img alt="mypage" class="footer-icon" src="{{ url_for('static', filename='/image/mypage.png') }}">
+        </div>
     </div>
 </div>
+
+
+
+
+
