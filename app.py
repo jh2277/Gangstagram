@@ -333,8 +333,8 @@ def story_get():
 # 마이 페이지에서 내 전체 게시물 보기
 @app.route('/my_page/my_story', methods=["GET"])
 def my_story():
-    my_story_list = list(db.all_story.find({}, {'denote': 0}, {'_id': False}))
-    my_story_list = sorted(my_story_list, reverse=True)
+    my_story_list = list(db.all_story.find({}, {'_id': False}))
+    my_story_list.reverse()
     return jsonify({'my_story_list': my_story_list})
 
 # __name__은 모듈의 이름이 저장되는 변수이며 import로 모듈을 가져왔을 때 모듈의 이름이 들어감.

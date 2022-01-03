@@ -67,31 +67,37 @@
         $(document).ready(function () {
             $.ajax({
                 type: 'GET',
-                url: '/my_page/my_story',
+                url: '/add_post',
                 data: {},
                 success: function (response) {
                     let rows = response['my_story_list']
                     for (let i = 0; i < rows.length; i++) {
-
-                        let name = rows[i]['name']
-                        let address = rows[i]['address']
-                        let size = rows[i]['size']
-
-                        let temp_html = `<tr>
-                                            <td>${name} </td>
-                                            <td>${address}</td>
-                                            <td>${size}</td>
-                                        </tr>`
-                        $('#order-box').append(temp_html)
+                        let nickname = rows[i]['nickname']
+                        let temp_html = `<p>${nickname}</p>`
+                        $('#left-wrap').append(temp_html)
                     }
                 }
             });
         });
 
+      $(document).ready(function get_my_story() {
+            $.ajax({                // get 요청이 들어갑니다 어디로? / 로!
+                type: 'GET',        // 그리고 response를 받아와서 카드를 만들어서 붙여주면 된다
+                url: '/my_page/my_story',           // 붙여주는건 temp_html = ``
+                data: {},
+                success: function (response) {
+                    let rows = response['my_story_list']
+                    for (let i = 0; i < rows.length; i++) {
+                        let img = rows[i]['img']
 
-
-
+                        let temp_html = `<img alt="my_page" class="grid_item" src="${img}">`
+                            $('#photo-container').append(temp_html)
+                    }
+                }
+            });
+        });
     </script>
+
 </head>
 <body>
 <div id="container">
@@ -103,7 +109,7 @@
             <div id="right-wrap">
 
                 <div id="togBtn">
-                    <img alt="add_post" src="{{ url_for('static', filename='/image/trending3@x.png')}}"
+                    <img alt="add_post" src="{{ url_for('static', filename='/image/trending@3x.png')}}"
                          onclick=add_post()>
                     <input type="checkbox" class="" id="toggle">
                     <label for="toggle"><span><img alt="my_page"
@@ -154,23 +160,14 @@
         </div>
         <div id="Post-mid">
             <section id="photo-container">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
-                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+
             </section>
         </div>
     </div>
     <div id="foot-container">
         <div id="foot_icon_wrapper">
             <img alt="home" src="{{ url_for('static', filename='/image/home@3x.png')}}">
-            <img alt="serch" src="{{ url_for('static', filename='/image/serch@3x')}}">
+            <img alt="search" src="{{ url_for('static', filename='/image/search@3x')}}">
             <img alt="waether" src="{{ url_for('static', filename='/image/weather.png')}}">
             <img alt="shop" src="{{ url_for('static', filename='/image/shopping-bag.png')}}">
             <img alt="mypage" src="{{ url_for('static', filename='/image/mypage.png')}}">

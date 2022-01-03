@@ -42,7 +42,7 @@ body{
 {
     margin: 3px 5px;
     padding-right: 20px;
-    width: 20%;
+    width: 40px;
 }
 /*토글*/
 #togBtn input[type=checkbox]{
