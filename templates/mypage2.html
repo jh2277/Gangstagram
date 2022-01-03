@@ -10,12 +10,12 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/static/my_page2.css">
-     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <title>mypage</title>
     <style>
 
     </style>
-        <script>
+    <script>
         $(function () {
             $(".grid_item").click(function () {
                 $(".modal").fadeIn();
@@ -24,93 +24,110 @@
             $(".modal_content").click(function () {
                 $(".modal").fadeOut();
             });
-
         });
+
+        /*마이 페이지 출력*/
+
+        $(document).ready(function () {
+            $.ajax({
+                method: "POST",
+                url: "my_page",
+                data: {},
+                success: function (data) {
+                    resultHtml(data);
+
+                }, error: function () {
+                    alert("에러 발생");
+                }
+            })
+        });
+
+
     </script>
 </head>
 <body>
-    <div id ="container">
-        <div id = "head-container">
-            <div id ="head-header">
-                <div id="left-wrap">
-                    <p>GANG_NAM</p>
-                </div>
-                <div id="right-wrap">
+<div id="container">
+    <div id="head-container">
+        <div id="head-header">
+            <div id="left-wrap">
+                <p>GANG_NAM</p>
+            </div>
+            <div id="right-wrap">
 
-                    <div id="togBtn">
-                        <img src="/static/image/trending@3x.png" >
-                        <input type="checkbox" class="" id="toggle">
-                        <label for ="toggle"><span><img src="/static/image/bars.png" style="width: 100%"></span></label>
-                        <ul id ="toggle_menu" class="toggle_menu">
-                            <li><a href="#" onclick="">만든 사람</a></li>
-                            <hr>
-                            <li><a href="#" onclick="">Log-out</a></li>
-                         </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="head-mid">
-                <div id = "profile_pic">
-                <img src="/static/image/img.png"  onclick=" ">
-                    <p>사용자</p>
-                </div>
-                <div id ="head-mid-right">
-                    <div id ="post">
-                        <p>0</p>
-                        <p>게시물</p>
-                    </div>
-                    <div id ="follower">
-                        <p>0</p>
-                        <p>팔로워</p>
-                    </div>
-                    <div id ="following">
-                        <p>0</p>
-                        <p>팔로잉</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id = "Post-container">
-                <div id ="Post-header">
-                    <ul id="navigation">
-                        <li><img src="/static/image/photo.png" class="post_icon"></li>
-                        <li><img src="/static/image/comment@3x.png" class="post_icon"></li>
+                <div id="togBtn">
+                    <img alt="my_page"  src="{{ url_for('static', filename='/image/trending3@x.png')}}">
+                    <input type="checkbox" class="" id="toggle">
+                    <label for="toggle"><span><img alt="my_page"  src="{{ url_for('static', filename='/image/bars.png')}}"></span></label>
+                    <ul id="toggle_menu" class="toggle_menu">
+                        <li><a href="#" onclick="">만든 사람</a></li>
+                        <hr>
+                        <li><a href="#" onclick="">Log-out</a></li>
                     </ul>
                 </div>
-                <div id ="Post-mid">
-                    <section id ="photo-container">
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                        <a href="#" class="grid_item"><img src="/static/image/hamabe.jpeg"></a>
-                </section>
-
             </div>
         </div>
-        <div id="foot-container">
-            <div id ="foot_icon_wrapper">
-                <img  src="/static/image/home@3x.png">
-                <img  src="/static/image/search@3x.png">
-                <img  src="/static/image/trending@3x.png">
-                <img  src="/static/image/like@3x.png">
-                <img  src="/static/image/mypage.png">
+        <div id="head-mid">
+            <div id="profile_pic">
+                <img alt="my_page"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
+                <p id="nickname">GANG_NAM</p>
             </div>
-        </div>
-        <div class="modal">
-                <div class="modal_content">
-                    <div id="modal_head">
-                        <img src="/static/image/img.png">
-                        <a>X</a>
-                    </div>
-                    <div id="modal_main">
-                        <img src="/static/image/hamabe.jpeg" style="width: 340px; height:500px">
-                    </div>
+            <div id="head-mid-right">
+                <div id="post">
+                    <p>0</p>
+                    <p>게시물</p>
                 </div>
+                <div id="follower">
+                    <p>0</p>
+                    <p>팔로워</p>
+                </div>
+                <div id="following">
+                    <p>0</p>
+                    <p>팔로잉</p>
+                </div>
+            </div>
         </div>
     </div>
+    <div id="Post-container">
+        <div id="Post-header">
+            <ul id="navigation">
+                <li> <img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/photo.png')}}"></li>
+                <li><img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/comment@3x.png')}}"></li>
+            </ul>
+        </div>
+        <div id="Post-mid">
+            <section id="photo-container">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+                <img alt="my_page" class="grid_item" src="{{ url_for('static', filename='/image/hamabe.jpeg')}}">
+            </section>
+        </div>
+    </div>
+    <div id="foot-container">
+        <div id="foot_icon_wrapper">
+            <img alt="my_page"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
+            <img alt="my_page"  src="{{ url_for('static', filename='/image/weather.png')}}">
+            <img alt="my_page" src="{{ url_for('static', filename='/image/trending@3.png')}}">
+            <img alt="my_page" src="{{ url_for('static', filename='/image/shopping-bag.png')}}">
+            <img alt="my_page"  src="{{ url_for('static', filename='/image/mypage.png')}}">
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal_content">
+            <div id="modal_head">
+                 <img alt="my_page"  src="{{ url_for('static', filename='/image/img.png')}}">
+                <a>X</a>
+            </div>
+            <div id="modal_main">
+                 <img alt="my_page"  src="{{ url_for('static', filename='/image/img.png')}}">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
