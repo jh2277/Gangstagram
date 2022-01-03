@@ -159,7 +159,7 @@ def api_valid():
 # 산책 여부 페이지 출력(날씨 정보 포함한 페이지)
 @app.route('/walk_possible', methods=['GET'])
 def walk_possible():
-    return render_template('walking_possibility.html')
+    return render_template('walking_possibility_yes.html')
 
 # 산책 메이트 찾기 페이지 출력
 @app.route('/walkmate', methods=["GET"])
