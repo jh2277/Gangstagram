@@ -1,12 +1,6 @@
 #container{
     margin: 0 auto;
     max-width: 375px;
-    border: 1px solid lightgray;
-    border-bottom: none;
-}
-#Post-box{
-    width: 80%;
-    margin: 3% auto auto;
 }
 
 #top{
@@ -32,6 +26,11 @@
     width: 6%;
 }
 
+#Post-box{
+    width: 80%;
+    margin: 3% auto auto;
+}
+
 #titleup{
     width:100%;
     max-width: 375px;
@@ -53,18 +52,20 @@
     flex-direction: row;
 }
 #footer{
+    background-color: whitesmoke;
+    position: fixed;
     width: 100%;
     max-width: 375px;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding-top: 5%;
+    padding-bottom: 5%;
     border: 1px solid lightgray;
-    position: fixed;
-    bottom:0;
-    background-color: white;
+    bottom: 0;
+
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 #footer .footer-icon{
-    width: 6%;
+    width: 8%;
+
 }
