@@ -35,7 +35,7 @@
         $(document).ready(function () {
             $.ajax({
                 method: "POST",
-                url: "my_page",
+                url: "url",
                 data: {},
                 success: function (data) {
                     resultHtml(data);
@@ -95,7 +95,7 @@
         <div id="Post-header">
             <ul id="navigation">
                 <li> <img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/photo.png')}}"></li>
-                <li><img alt="my_page" class="post_icon" src="{{ url_for('static', filename='/image/comment@3x.png')}}"></li>
+                <li><img alt="camera" class="post_icon" src="{{ url_for('static', filename='/image/camera@3x.png')}}"></li>
             </ul>
         </div>
         <div id="Post-mid">
@@ -115,11 +115,11 @@
     </div>
     <div id="foot-container">
         <div id="foot_icon_wrapper">
-            <img alt="my_page"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
-            <img alt="my_page"  src="{{ url_for('static', filename='/image/weather.png')}}">
-            <img alt="my_page" src="{{ url_for('static', filename='/image/trending@3.png')}}">
-            <img alt="my_page" src="{{ url_for('static', filename='/image/shopping-bag.png')}}">
-            <img alt="my_page"  src="{{ url_for('static', filename='/image/mypage.png')}}">
+            <img alt="home"  src="{{ url_for('static', filename='/image/home@3x.png')}}">
+            <img alt="serch" src="{{ url_for('static', filename='/image/serch@3x')}}">
+            <img alt="waether" src="{{ url_for('static', filename='/image/weather.png')}}">
+            <img alt="shop" src="{{ url_for('static', filename='/image/shopping-bag.png')}}">
+            <img alt="mypage" src="{{ url_for('static', filename='/image/mypage.png')}}">
         </div>
     </div>
     <div class="modal">
