@@ -58,21 +58,35 @@
             });
         });
 
-        /*마이 페이지 출력*/
+        function logout() {
+            $.removeCookie('mytoken');
+            alert('로그아웃!')
+            window.location.href = '/login'
+        }
 
-        $(document).ready(function () {
+        function get_my_story() {
             $.ajax({
-                method: "POST",
-                url: "url",
+                type: 'GET',
+                url: '/my_page/my_story',
                 data: {},
-                success: function (data) {
-                    resultHtml(data);
+                success: function (response) {
+                    let rows = response['my_story_list']
+                    for (let i = 0; i < rows.length; i++) {
 
-                }, error: function () {
-                    alert("에러 발생");
+                        let name = rows[i]['name']
+                        let address = rows[i]['address']
+                        let size = rows[i]['size']
+
+                        let temp_html = `<tr>
+                                            <td>${name} </td>
+                                            <td>${address}</td>
+                                            <td>${size}</td>
+                                        </tr>`
+                        $('#order-box').append(temp_html)
+                    }
                 }
-            })
-        });
+            });
+        }
 
 
     </script>
@@ -95,7 +109,7 @@
                     <ul id="toggle_menu" class="toggle_menu">
                         <li><a href="#" onclick="">만든 사람</a></li>
                         <hr>
-                        <li><a href="#" onclick="">Log-out</a></li>
+                        <li><a href="#" onclick="logout()">Log-out</a></li>
                     </ul>
                 </div>
             </div>
@@ -107,8 +121,8 @@
                 </div>
                 <div class="p-image">
                     <i class="fa fa-camera upload-button"></i>
-                    <Label class="input-button" for="file-upload"><img src ="/static/image/black_camer.png"></Label>
-                        <input id="file-upload" type="file" accept="image/*"/>
+                    <Label class="input-button" for="file-upload"><img src="/static/image/black_camer.png"></Label>
+                    <input id="file-upload" type="file" accept="image/*"/>
                 </div>
                 <p id="nickname">GANG_NAM</p>
             </div>
