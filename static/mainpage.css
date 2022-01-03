@@ -1,7 +1,7 @@
 #container {
     margin: 0 auto;
-    max-width: 375px;
-
+    max-width: 700px;
+    border: 1px solid lightgray;
 }
 
 #top-container{
@@ -10,7 +10,7 @@
     align-items: center;
     position: fixed;
     width: 100%;
-    max-width: 375px;
+    max-width: 700px;
     top: 0;
     padding-top: 1%;
     margin-bottom: 12%;
@@ -29,7 +29,7 @@
 }
 
 .user-container{
-    margin-top : 15%;
+    margin-top : 12%;
     padding-bottom: 1%;
 
     width: 100%;
@@ -93,7 +93,7 @@
 
 .timeline{
     width: 100%;
-    margin-bottom: 22%;
+    margin-bottom: 10%;
 }
 .timeline-text{
     font-size: 11px;
@@ -107,21 +107,20 @@
 }
 
 #footer{
-    background-color: whitesmoke;
     position: fixed;
     width: 100%;
-    max-width: 375px;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    max-width: 700px;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
     border: 1px solid lightgray;
     bottom: 0;
-
+    background-color: white;
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 #footer .footer-icon{
-    width: 8%;
+    width: 6%;
 }
 
 
