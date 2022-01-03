@@ -61,6 +61,7 @@ def login():
 def register():
     return render_template('signup.html')
 
+# id, pw, nickname, gender, address, dogbreed, dogsize를 받아서, mongoDB에 저장합니다.
 # 저장하기 전에, pw를 sha256 방법(=단방향 암호화. 풀어볼 수 없음)으로 암호화해서 저장합니다.
 @app.route('/sign_up/request', methods=['POST'])
 def register_post():
@@ -69,13 +70,26 @@ def register_post():
     nickname_receive = request.form['nickname_give']
     address_receive = request.form['address_give']
     owner_gender_receive = request.form['owner_gender_give']
-    # title_receive = request.form['title_give']
-    # file = request.files['file_give']
-    # hash_receive = request.form['hash_give']
+    file_receive = request.files['file_give']
+    introduce_comment_receive = request.form['introduce_comment_give']
     dog_breed_receive = request.form['dog_breed_give']
     dog_size_receive = request.form['dog_size_give']
 
+    # 비밀번호를 sha256 방법으로 단방향 암호화
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
+
+    ### 이미지 파일 저장 부분 ###
+    # 해당 파일에서 확장자명만 추출
+    extension = file_receive.filename.split('.')[-1]
+    # 파일 이름이 중복되면 안되므로, 지금 시간을 해당 파일 이름으로 만들어서 중복이 되지 않게 함!
+    today = datetime.datetime.now()
+    my_time = today.strftime('%Y-%m-%d-%H-%M-%S')
+    filename = f'{my_time}'
+    # 파일 저장 경로 설정 (파일은 db가 아니라, 서버 컴퓨터 자체에 저장됨)
+    save_to = f'static/profile/{filename}.{extension}'
+    # 파일 저장!
+    file_receive.save(save_to)
+    ### 이미지 파일 저장 부분 ###
 
     doc = {
         'email': email_receive,
@@ -83,13 +97,15 @@ def register_post():
         'nickname': nickname_receive,
         'address': address_receive,
         'owner_gender': owner_gender_receive,
-        # 이 부분에 이미지 저장 부분 추가.
+        'profile_img': f'{filename}.{extension}',
+        'introduce_comment': introduce_comment_receive,
         'dog_breed': dog_breed_receive,
-        'dog_size': dog_size_receive
+        'dog_size': dog_size_receive,
     }
 
     db.members.insert_one(doc)
-
+    # db.members.update({'nickname': nickname_receive}, {'$set': {'temp':temp_receive}}, upsert=True)
+    # db.members.update({'nickname': "남집사"}, {'$push': {'temp': temp_receive}})
     return jsonify({'result': 'success'})
 
 
@@ -139,7 +155,7 @@ def api_valid():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         print(payload)
 
-        # payload 안에 email 들어있습니다. 이 email로 유저정보를 찾습니다.
+        # payload 안에 email 들어있습니다. 이 eamil로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         user_info = db.members.find_one({'email': payload['email']}, {'_id': False})
         return jsonify({'result': 'success', 'nickname': user_info['nickname']})
@@ -156,7 +172,7 @@ def api_valid():
 # 산책 여부 페이지 출력(날씨 정보 포함한 페이지)
 @app.route('/walk_possible', methods=['GET'])
 def walk_possible():
-    return render_template('walking_possibility.html')
+    return render_template('walking_possibility_yes.html')
 
 # 산책 메이트 찾기 페이지 출력
 @app.route('/walkmate', methods=["GET"])
@@ -181,7 +197,10 @@ def shop():
 # 마이 페이지 출력
 @app.route('/my_page', methods=["GET"])
 def my_page():
-    return render_template("mypage.html")
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+    return render_template("mypage.html", mytoken=token)
 
 
 ############################
@@ -190,30 +209,74 @@ def my_page():
 # 산책 메이트 정보 선택 사항 받기
 @app.route('/walkmate/search', methods=["POST"])
 def select_walkmate_conditions():
+    # 임시 조건 콜렉션 내 모든 도큐먼트 삭제로 db 초기화
+    db.temp_condition_db.drop()
+
     # 산책메이트 조건에 해당하는 항목들의 값 가져오기
-    address_search = request.form['address']
-    owner_gender_search = request.form['owner_gender']
-    dog_size_search = request.form['dog_size']
+    address_receive = request.form['address_give']
+    owner_gender_receive = request.form['owner_gender_give']
+    dog_size_receive = request.form['dog_size_give']
 
-    # 산책메이트 조건 뽑아서 dictionary에 저장
+    # 빈 리스트 선언
+    # searched_members = []
+    # 리스트에 다중 조건으로 해당 조건들과 일치하는 멤버들을 빈 리스트에 append 해줌.
+    # for m in db.members.find({
+    #     'address': address_receive,
+    #     'owner_gender': owner_gender_receive,
+    #     'dog_size': dog_size_receive},{'_id':False}):
+    #     # for문 내부
+    #     searched_members.append(m)
+
+    ### 새로운 해결방안 부분 ###
     doc = {
-        'address_search': address_search,
-        'owner_gender_search': owner_gender_search,
-        'dog_size_search': dog_size_search
+        "address": address_receive,  # 주소
+        "owner_gender": owner_gender_receive,  # (견주)성별
+        "dog_size": dog_size_receive,  # 견 크기
     }
-    db.same_info_list.insert_one(doc)
+    # 임시 조건 db에 저장
+    db.temp_condition_db.insert_one(doc)
+    return jsonify({'result': 'success'})
+    ### 새로운 해결방안 부분 ###
 
-    return jsonify({'msg': '조건에 맞는 회원을 확인합니다'})
 
-############################
-# walkmate_list.html / 산책 메이트 목록 출력 페이지 API #
-############################
-# 산책 메이트 조건 선택 사항과 일치하는 리스트를 회원가입 정보에서 가져오기
-@app.route('/walkmate/list', methods=["GET"])
-def print_walkmate_list():
-    selected_info_list = list(db.same_info_list.find({}, {'_id': False}))
+    # searched_members가 비어있지 않다면 즉, 발견했다면(0이 아닌 숫자는 True이므로)
+    # if searched_members:
+        # 고생의 흔적들. 아래 세개의 함수를 각각 언제 써야하는지에 대해 공부.
+        # return jsonify({'result': 'success', 'found_members': searched_members})
+        # return render_template('walkmate_list.html', found_members=searched_members)
+        # return redirect(url_for('move_walkmate_list', found_members=searched_members))
+    # else:
+        # 멤버를 찾지 못한 경우 원래의 조건 검색 페이지에서 실패 메시지 출력 후 다시 검색하도록 함.
+        # return jsonify({'result': 'fail', 'msg': '아무도 없네요ㅜ..다른 조건으로 검색해주세요.'})
 
-    return jsonify({'selected_info_list': selected_info_list})
+
+### 새로운 해결방안 부분 ###
+@app.route('/walkmate/search', methods=["GET"])
+def move_walkmate_list():
+    return render_template('walkmate_list.html')
+### 새로운 해결방안 부분 ###
+
+### 새로운 해결방안 부분 ###
+@app.route('/walkmate/list')
+def find_list():
+    con_li = list(db.temp_condition_db.find({}, {'_id': False}))
+    address_condition = con_li[0]['address']
+    owner_gender_condition = con_li[0]['owner_gender']
+    dog_size_condition = con_li[0]['dog_size']
+
+    # 빈 리스트 선언
+    searched_members = []
+    # 리스트에 다중 조건으로 해당 조건들과 일치하는 멤버들을 빈 리스트에 append 해줌.
+    for m in db.members.find({
+        'address': address_condition,
+        'owner_gender': owner_gender_condition,
+        'dog_size': dog_size_condition},{'_id':False}):
+        # for문 내부
+        searched_members.append(m)
+
+    return jsonify({'searched_members': searched_members})
+### 새로운 해결방안 부분 ###
+
 
 ############################
 # add_post.html / 스토리 게시글 추가 API #
@@ -232,7 +295,6 @@ def story_add_post():
     comment_receive = request.form['comment_give']
     hash_receive = request.form['hash_give']
 
-
     # 해당 파일에서 확장자명만 추출
     extension = file.filename.split('.')[-1]
     # 파일 이름이 중복되면 안되므로, 지금 시간을 해당 파일 이름으로 만들어서 중복이 되지 않게 함!
@@ -244,9 +306,9 @@ def story_add_post():
     # 파일 저장!
     file.save(save_to)
 
-
     # 아래와 같이 입하면 db에 추가 가능!
     doc = {
+        'my_time': my_time,
         'nickname': nickname,
         'img': f'{filename}.{extension}',
         'comment': comment_receive,
@@ -255,8 +317,6 @@ def story_add_post():
     db.all_story.insert_one(doc)
 
     return jsonify({'msg': '작성 완료'})
-
-
 
 # 게시글 불러오기
 @app.route('/add_post', methods=["GET"])
@@ -276,7 +336,6 @@ def my_story():
     my_story_list = list(db.all_story.find({}, {'denote': 0}, {'_id': False}))
     my_story_list = sorted(my_story_list, reverse=True)
     return jsonify({'my_story_list': my_story_list})
-
 
 # __name__은 모듈의 이름이 저장되는 변수이며 import로 모듈을 가져왔을 때 모듈의 이름이 들어감.
 # 그런데 파이썬 인터프리터로 스크립트 파일을 직접 실행했을 때는 모듈의 이름이 아닌 __main__ 이 들어감.
