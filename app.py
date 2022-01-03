@@ -142,7 +142,7 @@ def api_valid():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         print(payload)
 
-        # payload 안에 email 들어있습니다. 이 eamil로 유저정보를 찾습니다.
+        # payload 안에 email 들어있습니다. 이 email로 유저정보를 찾습니다.
         # 여기에선 그 예로 닉네임을 보내주겠습니다.
         user_info = db.members.find_one({'email': payload['email']}, {'_id': False})
         return jsonify({'result': 'success', 'nickname': user_info['nickname']})
@@ -159,7 +159,7 @@ def api_valid():
 # 산책 여부 페이지 출력(날씨 정보 포함한 페이지)
 @app.route('/walk_possible', methods=['GET'])
 def walk_possible():
-    return render_template('walking_possibility_yes.html')
+    return render_template('walking_possibility.html')
 
 # 산책 메이트 찾기 페이지 출력
 @app.route('/walkmate', methods=["GET"])
@@ -169,7 +169,12 @@ def walkmate():
 # 스토리 게시글 추가 페이지 출력
 @app.route('/add_post', methods=["GET"])
 def story_post():
-    return render_template("add_post.html")
+    token_receive = request.cookies.get('mytoken')
+    # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    # email로 db에서 유저를 찾아 user_info 변수에 저장해줍니다.
+    user_info = db.members.find_one({"email": payload['email']})
+    return render_template("add_post.html", nickname=user_info["nickname"])
 
 # 샵 페이지 출력
 @app.route('/shop', methods=["GET"])
@@ -222,9 +227,17 @@ def print_walkmate_list():
 # 스토리 게시글 추가
 @app.route('/add_post/add_story', methods=["POST"])
 def story_add_post():
-    denote = 0  # 내 게시물에는 denote 0, 타인의 게시물에는 denote 1 표시 후 구분
-    title_receive = request.form['title_give']
+    token_receive = request.cookies.get('mytoken')
+    # 암호화되어있는 token의 값을 우리가 사용할 수 있도록 디코딩(암호화 풀기)해줍니다!
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    # email로 db에서 유저를 찾아 user_info 변수에 저장해줍니다.
+    user_info = db.members.find_one({"email": payload['email']})
+
+    nickname = user_info["nickname"]
+
+
     file = request.files['file_give']
+    comment_receive = request.form['comment_give']
     hash_receive = request.form['hash_give']
 
     # 해당 파일에서 확장자명만 추출
@@ -232,22 +245,12 @@ def story_add_post():
     # 파일 이름이 중복되면 안되므로, 지금 시간을 해당 파일 이름으로 만들어서 중복이 되지 않게 함!
     today = datetime.now()
     my_time = today.strftime('%Y-%m-%d-%H-%M-%S')
-    filename = f'{title_receive}-{my_time}'
+    filename = f'{my_time}'
     # 파일 저장 경로 설정 (파일은 db가 아니라, 서버 컴퓨터 자체에 저장됨)
-    save_to = f'static/{filename}.{extension}'
+    save_to = f'static/profile/{filename}.{extension}'
     # 파일 저장!
     file.save(save_to)
 
-    # 아래와 같이 입하면 db에 추가 가능!
-    doc = {
-        'denote': denote,
-        'title': title_receive,
-        'img': f'{filename}.{extension}',
-        'hash': hash_receive
-    }
-    db.story.insert_one(doc)
-
-    return jsonify({'msg': '작성 완료'}), render_template("index.html")
 
 
 # 게시글 불러오기
@@ -267,7 +270,7 @@ def story_get():
 def my_story():
     my_story_list = list(db.story.find({}, {'denote': 0}, {'_id': False}))
     my_story_list = sorted(my_story_list, reverse=True)
-    return jsonify({'orders': my_story_list})
+    return jsonify({'my_story_list': my_story_list})
 
 
 # __name__은 모듈의 이름이 저장되는 변수이며 import로 모듈을 가져왔을 때 모듈의 이름이 들어감.

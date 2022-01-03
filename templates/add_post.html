@@ -16,13 +16,15 @@
 
     <script>
         function posting() {
-            let title = $('#title').val()
+            let nickname = $({{ nickname }}   //추가
             let file = $('#file')[0].files[0]
+            let comment = $('#comment').val() //추가
             let hash = $('#hash').val()
             let form_data = new FormData()
 
-            form_data.append("title_give", title)
+            form_data.append("nickname", nickname)
             form_data.append("file_give", file)
+            form_data.append("comment_give", comment)
             form_data.append("hash_give", hash)
 
             $.ajax({
@@ -34,7 +36,7 @@
                 processData: false,
                 success: function (response) {
                     alert(response["msg"])
-                    window.location.reload()
+                    window.location.href = '/'
                 }
             });
         }
@@ -56,13 +58,14 @@
         <br>
 
         <div id="info_wrap">
-            <div class="form-floating mb-3">
-                <input type="text" id="title" class="form-control" placeholder="업로드할 이미지 제목을 입력해주세요">
-                <label for="floatingInput">업로드 제목</label>
-            </div>
+
             <div class="form-floating mb-3">
                 <input type="text" id="hash" class="form-control" placeholder="관련 해시태그를 달아주세요">
-                <label for="floatingInput">#해시태그</label>
+                <label for="floatingInput">#해시태그를 달아주세요</label>
+            </div>
+               <div class="form-floating mb-3">
+                <input type="text" id="comment" class="form-control" placeholder="코멘트를 남겨주세요">
+                <label for="floatingInput">코멘트를 남겨주세요</label>
             </div>
             <div class="input-group">
                 <input type="file" class="form-control" id="file" aria-describedby="inputGroupFileAddon04"
