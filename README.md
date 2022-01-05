@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # Gangstagram
 **1. 프로젝트 제목 : 강스타그램**
 
@@ -28,12 +26,3 @@
 
 **3. DB 구조 (API설계)**
 ![api](https://user-images.githubusercontent.com/96563287/148009572-4fe7ac4e-3821-4906-8ba9-4c491d731970.JPG)
-<<<<<<< HEAD
-
-
-
-
->>>>>>> 6f0533c67d7bb3d955ca8291b43599f23f0feb44
-
-=======
->>>>>>> 345d79ae5ba54dc728cc349a6c8f3a53581c3836
